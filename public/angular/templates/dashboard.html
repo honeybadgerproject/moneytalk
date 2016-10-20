@@ -1,0 +1,43 @@
+<div class="container">
+
+
+</div>
+<div class="row">
+	<div ng-hide="user">
+		<br><br><br>
+		<div class="container">
+			<p>Contenido</p>
+
+			<div id="mainView">
+			 <h2>MoneyTalk Service Edition</h2>
+
+			 <div class="jsonView">
+					 <json child="jsonData" default-collapsed="false" type="object"></json>
+			 </div>
+
+			 <hr>
+			 <div>
+					 <textarea id="jsonTextarea" ng-model="jsonString"></textarea>
+					 <span class="red" ng-if="!wellFormed">JSON not well-formed!</span>
+			 </div>
+ 	 		</div>
+			<!-- use somewhere in your template -->
+			<!--<div class="jsonView">
+    		<json child="myJson" default-collapsed="false" type="object"></json>
+			</div>
+			<div>
+					 <textarea id="jsonTextarea" ng-model="jsonString"></textarea>
+					 <span class="red" ng-if="!wellFormed">JSON not well-formed!</span>
+			 </div>
+			<br><br>
+			<div class="form-group row">
+	      <label class="col-sm-2 form-control-label">JSON Promo Body</label>
+	      <div class="col-sm-10">
+	        <textarea class="form-control" rows="10" ng-model="promotions">{{promotions | json}}</textarea>
+	      </div>
+	    </div>-->
+		</div>
+
+	</div>
+
+</div>

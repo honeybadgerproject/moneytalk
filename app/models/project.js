@@ -1,0 +1,38 @@
+"use strict";
+
+module.exports = function(sequelize, DataTypes) {
+  var Project = sequelize.define("Project", {
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    pageContent: DataTypes.TEXT,
+    price: DataTypes.FLOAT,
+    rate: DataTypes.FLOAT,
+    type: DataTypes.STRING,
+    customUrl: DataTypes.STRING,
+    websiteUrl: DataTypes.STRING,
+    vendor: DataTypes.STRING,
+    vendorId: DataTypes.INTEGER,
+    clone: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate: function(models) {
+
+        //Project.hasMany(models.ProjectCategory, as: 'projectCategories');
+        Project.belongsToMany(models.Category, {through: 'ProjectCategory'});
+        Project.hasMany(models.Language, {as: 'languages'});
+
+        Project.belongsToMany(models.User, { as: 'bought', through: 'ProductBought'});
+        Project.belongsToMany(models.User, { as: 'likes', through: 'ProductLikes'});
+
+        Project.belongsTo(models.User, {
+          onDelete: "CASCADE",
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Project;
+};
