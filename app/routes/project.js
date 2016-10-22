@@ -9,17 +9,17 @@ var github = require('octonode');
 module.exports = function(db) {
 
 router.get('/stores', function(req, res, next) {
-    db.storesdb.find(function (err, doc) {
-      console.log(doc.data);
-      res.json(doc.data)
+    db.storesdb.find(function (err, docs) {
+      console.log(docs);
+      res.json(docs)
     });
 });
 
 router.post('/save', function(req, res, next) {
 
-    console.log(req.body.data);
+    console.log(req.body);
 
-    db.storesdb.insert(req.body.data, function(err, doc) {
+    db.storesdb.insert(req.body, function(err, doc) {
        res.json(doc);
      });
 

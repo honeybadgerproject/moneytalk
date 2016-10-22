@@ -2,11 +2,13 @@ angular.module('app')
 	.controller('DashboardController', ['$scope', '$filter', '$http', 'fakeData',
 		function($scope, $filter, $http, fakeData ) {
 
+		$scope.jsonData = "";
 
 		$scope.retrieveStores = function() {
 
 			$http.get("/project/stores").then(function(response) {
-					$scope.jsonData = response;
+				console.log(response.data);
+					$scope.jsonData = response.data;
     	});
 		}
 

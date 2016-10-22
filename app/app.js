@@ -8,7 +8,7 @@ var mongojs = require('mongojs');
 
 
 // simple usage for a local db
-var db = mongojs('mydb', ['storesdb'])
+var db = mongojs('storesdb', ['storesdb'])
 
 var routes = require('./routes/index');
 var project = require('./routes/project')(db);
