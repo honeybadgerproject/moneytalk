@@ -210,6 +210,7 @@
     "angular-chart.js": "^0.10.2",
     "flatkit": "git@bitbucket.org:wedevelopmx/flatkit.git",
     "angular-websocket": "^2.0.0",
-    "angular-socket-io": "^0.7.0"
+    "angular-socket-io": "^0.7.0",
+    "JSONedit": "json-edit#^0.2.1"
   }
 }

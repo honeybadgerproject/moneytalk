@@ -1,12 +1,25 @@
 angular.module('app')
-	.controller('DashboardController', ['$scope', '$filter', 'fakeData',
-		function($scope, $filter, fakeData ) {
+	.controller('DashboardController', ['$scope', '$filter', '$http', 'fakeData',
+		function($scope, $filter, $http, fakeData ) {
 
 
-	//	$scope.promotions = fakeData.returnStores();
+		$scope.retrieveStores = function() {
 
-		// example JSON
-    $scope.jsonData =  fakeData.returnStores();
+			$http.get("/project/stores").then(function(response) {
+					$scope.jsonData = response;
+    	});
+		}
+
+
+
+		$scope.save = function() {
+			console.log($scope.jsonData);
+			$http.post("/project/save", $scope.jsonData).then(function(response) {
+				console.log(response);
+			});
+		}
+
+
 
     $scope.$watch('jsonData', function(json) {
         $scope.jsonString = $filter('json')(json);

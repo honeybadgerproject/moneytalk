@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-init="retrieveStores()">
 
 
 </div>
@@ -9,7 +9,10 @@
 			<p>Contenido</p>
 
 			<div id="mainView">
-			 <h2>MoneyTalk Service Edition</h2>
+				<div class="form-group row">
+					<h2 class="col-md-8">MoneyTalk Service Edition</h2><br>
+			 		<button class="md-btn md-raised m-b-sm w-xs red pull-right" style="color:#FFF" ng-click="save()">Save</button>
+				</div>
 
 			 <div class="jsonView">
 					 <json child="jsonData" default-collapsed="false" type="object"></json>

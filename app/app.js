@@ -4,10 +4,14 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var mongojs = require('mongojs');
 
+
+// simple usage for a local db
+var db = mongojs('mydb', ['storesdb'])
 
 var routes = require('./routes/index');
-var project = require('./routes/project');
+var project = require('./routes/project')(db);
 
 
 var app = express();
