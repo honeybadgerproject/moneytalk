@@ -7,6 +7,7 @@ angular.module('app')
 		$scope.selectStore;
 
 
+
 		$scope.retrieveStores = function() {
 			console.log("refresh");
 			refresh();
@@ -29,10 +30,14 @@ angular.module('app')
 
 		$scope.save = function() {
 			console.log($scope.jsonData);
-			$http.put("/project/save/" + $scope.jsonData._id, $scope.jsonData).then(function(response) {
-				console.log(response);
-				refresh();
-			});
+
+			$http.delete("/project/delete/" + $scope.jsonData._id, $scope.jsonData).then(function(response) {
+				$http.post("/project/save/" + $scope.jsonData._id, $scope.jsonData).then(function(response) {
+					console.log(response);
+					refresh();
+				});
+			})
+
 		}
 
 		$scope.addStore = function(name) {
@@ -45,9 +50,8 @@ angular.module('app')
 
 		$scope.deleteStore = function() {
 
-			$http.post("/project/delete").then(function(response) {
-
-				$scope.stores = response.data;
+			$http.delete("/project/remove/" + $scope.selectStore).then(function(response) {
+				refresh();
 			});
 		}
 
