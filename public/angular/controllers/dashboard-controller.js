@@ -3,23 +3,58 @@ angular.module('app')
 		function($scope, $filter, $http, fakeData ) {
 
 		$scope.jsonData = "";
+		$scope.stores = "";
+		$scope.selectStore;
+
 
 		$scope.retrieveStores = function() {
+			console.log("refresh");
+			refresh();
+		}
 
+		var refresh = function() {
 			$http.get("/project/stores").then(function(response) {
+				$scope.stores = response.data;
 				console.log(response.data);
-					$scope.jsonData = response.data;
     	});
 		}
 
+		var select = function() {
+			$http.get("/project/store/" + $scope.selectStore).then(function(response) {
+				$scope.jsonData = response.data;
+				console.log(response.data);
+			});
+		}
 
 
 		$scope.save = function() {
 			console.log($scope.jsonData);
-			$http.post("/project/save", $scope.jsonData).then(function(response) {
+			$http.put("/project/save/" + $scope.jsonData._id, $scope.jsonData).then(function(response) {
 				console.log(response);
+				refresh();
 			});
 		}
+
+		$scope.addStore = function(name) {
+
+			var jsonName = { "name": name };
+			$http.post("/project/add", jsonName).then(function(response) {
+				refresh();
+			});
+		}
+
+		$scope.deleteStore = function() {
+
+			$http.post("/project/delete").then(function(response) {
+
+				$scope.stores = response.data;
+			});
+		}
+
+		$scope.$watch('selectStore', function() {
+        select();
+				console.log($scope.selectStore);
+    });
 
 
 
@@ -34,6 +69,8 @@ angular.module('app')
             $scope.wellFormed = false;
         }
     }, true);
+
+		//----------------------------------//
 
 
 

@@ -4,14 +4,31 @@
 </div>
 <div class="row">
 	<div ng-hide="user">
-		<br><br><br>
-		<div class="container">
-			<p>Contenido</p>
 
+		<div class="container">
 			<div id="mainView">
 				<div class="form-group row">
 					<h2 class="col-md-8">MoneyTalk Service Edition</h2><br>
 			 		<button class="md-btn md-raised m-b-sm w-xs red pull-right" style="color:#FFF" ng-click="save()">Save</button>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-8">
+						<select class="form-control c-select" ng-model="selectStore">
+							<option>---</option>
+							<option 	ng-selected="{{store == selectStore}}"
+												ng-repeat="store in stores">{{store.name}}</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<p class="m-b">
+	            <button class="btn btn-icon white">
+	              <i class="fa fa-plus" data-toggle="modal" data-target="#m-b-w-add-store"></i>
+	            </button>
+	            <button class="btn btn-icon white">
+	              <i class="fa fa-remove" data-toggle="modal" data-target="#m-b-w-delete-store"></i>
+	            </button>
+	          </p>
+					</div>
 				</div>
 
 			 <div class="jsonView">
@@ -44,3 +61,41 @@
 	</div>
 
 </div>
+
+<!-- .modal add stores -->
+<div id="m-b-w-add-store" class="modal white-overlay" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content box-shadow-z3">
+      <div class="modal-header">
+      	<h5 class="modal-title">Add Store</h5>
+      </div>
+      <div class="modal-body text-center p-lg">
+				<input type="text"  class="form-control" placeholder="store" ng-model="storeName">
+	    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
+        <button type="button" class="btn danger p-x-md"  ng-click="addStore(storeName)"  data-dismiss="modal">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+<!-- / .modal add stores -->
+
+<!-- .modal delete stores -->
+<div id="m-b-w-delete-store" class="modal white-overlay" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content box-shadow-z3">
+      <div class="modal-header">
+      	<h5 class="modal-title">Delete Store</h5>
+      </div>
+      <div class="modal-body text-center p-lg">
+        <p>{{deleteStore}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
+        <button type="button" class="btn danger p-x-md" ng-click="deleteStore()"  data-dismiss="modal">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+<!-- / .modal delete stores -->

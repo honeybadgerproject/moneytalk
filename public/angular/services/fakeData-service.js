@@ -7,6 +7,9 @@ angular.module('app')
 
 
     /************ stores 1 ***********/
+
+		var store
+
     var stores = [
 										{
 											"storeId": "1" ,
