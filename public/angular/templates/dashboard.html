@@ -1,20 +1,68 @@
-<div class="container" ng-init="retrieveStores()">
-
-
+<div class="container">
 </div>
-<div class="row">
+<div class="row" ng-init="retrieveValues()">
 	<div ng-hide="user">
 
 		<div class="container">
 			<div id="mainView">
 				<div class="form-group row">
 					<h2 class="col-md-8">MoneyTalk Service Edition</h2><br>
-			 		<button class="md-btn md-raised m-b-sm w-xs red pull-right" style="color:#FFF" ng-click="save()">Save</button>
 				</div>
-				<div class="form-group row">
+				<button class="md-btn md-raised m-b-sm w-xs dark" style="color:#FFF" ng-click="activateSales()">Sales</button>&nbsp;&nbsp;
+				<button class="md-btn md-raised m-b-sm w-xs dark" style="color:#FFF" ng-click="activateCards()">Cards</button>&nbsp;&nbsp;
+				<button class="md-btn md-raised m-b-sm w-xs dark" style="color:#FFF" ng-click="activateStores()">Stores</button>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><h5 class="success">{{schema}}</h5></label>
+				<br><br>
+
+				<!-- sales select -->
+				<div class="form-group row" ng-show="showSales">
+					<div class="col-sm-8">
+						<select class="form-control c-select" ng-model="selectSale">
+							<option disabled selected>--- sales ---</option>
+							<option 	ng-selected="{{sale == selectSale}}"
+												ng-repeat="sale in sales">{{sale.name}}</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<p class="m-b">
+	            <button class="btn btn-icon white">
+	              <i class="fa fa-plus" data-toggle="modal" data-target="#m-b-w-add-sale"></i>
+	            </button>
+	            <button class="btn btn-icon white">
+	              <i class="fa fa-remove" data-toggle="modal" data-target="#m-b-w-delete-sale"></i>
+	            </button>
+							<button class="md-btn md-raised m-b-sm w-xs red pull-right" style="color:#FFF" ng-click="saveSales()">Save</button>
+	          </p>
+					</div>
+				</div>
+
+				<!-- cards select -->
+				<div class="form-group row" ng-show="showCards">
+					<div class="col-sm-8">
+						<select class="form-control c-select" ng-model="selectCard">
+							<option disabled selected>--- cards ---</option>
+							<option 	ng-selected="{{card == selectCard}}"
+												ng-repeat="card in cards">{{card.name}}</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<p class="m-b">
+	            <button class="btn btn-icon white">
+	              <i class="fa fa-plus" data-toggle="modal" data-target="#m-b-w-add-card"></i>
+	            </button>
+	            <button class="btn btn-icon white">
+	              <i class="fa fa-remove" data-toggle="modal" data-target="#m-b-w-delete-card"></i>
+	            </button>
+							<button class="md-btn md-raised m-b-sm w-xs red pull-right" style="color:#FFF" ng-click="saveCards()">Save</button>
+	          </p>
+					</div>
+				</div>
+
+				<!-- store select -->
+				<div class="form-group row" ng-show="showStores">
 					<div class="col-sm-8">
 						<select class="form-control c-select" ng-model="selectStore">
-							<option>---</option>
+							<option disabled selected>--- stores ---</option>
 							<option 	ng-selected="{{store == selectStore}}"
 												ng-repeat="store in stores">{{store.name}}</option>
 						</select>
@@ -27,6 +75,7 @@
 	            <button class="btn btn-icon white">
 	              <i class="fa fa-remove" data-toggle="modal" data-target="#m-b-w-delete-store"></i>
 	            </button>
+							<button class="md-btn md-raised m-b-sm w-xs red pull-right" style="color:#FFF" ng-click="saveStores()">Save</button>
 	          </p>
 					</div>
 				</div>
@@ -41,21 +90,7 @@
 					 <span class="red" ng-if="!wellFormed">JSON not well-formed!</span>
 			 </div>
  	 		</div>
-			<!-- use somewhere in your template -->
-			<!--<div class="jsonView">
-    		<json child="myJson" default-collapsed="false" type="object"></json>
-			</div>
-			<div>
-					 <textarea id="jsonTextarea" ng-model="jsonString"></textarea>
-					 <span class="red" ng-if="!wellFormed">JSON not well-formed!</span>
-			 </div>
-			<br><br>
-			<div class="form-group row">
-	      <label class="col-sm-2 form-control-label">JSON Promo Body</label>
-	      <div class="col-sm-10">
-	        <textarea class="form-control" rows="10" ng-model="promotions">{{promotions | json}}</textarea>
-	      </div>
-	    </div>-->
+
 		</div>
 
 	</div>
@@ -99,3 +134,79 @@
   </div>
 </div>
 <!-- / .modal delete stores -->
+
+<!-- .modal add sales -->
+<div id="m-b-w-add-sale" class="modal white-overlay" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content box-shadow-z3">
+      <div class="modal-header">
+      	<h5 class="modal-title">Add Sales</h5>
+      </div>
+      <div class="modal-body text-center p-lg">
+				<input type="text"  class="form-control" placeholder="sale" ng-model="saleName">
+	    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
+        <button type="button" class="btn danger p-x-md"  ng-click="addSale(saleName)"  data-dismiss="modal">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+<!-- / .modal add sales -->
+
+<!-- .modal delete sales -->
+<div id="m-b-w-delete-sale" class="modal white-overlay" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content box-shadow-z3">
+      <div class="modal-header">
+      	<h5 class="modal-title">Delete Sales</h5>
+      </div>
+      <div class="modal-body text-center p-lg">
+        <p>{{selectSale}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
+        <button type="button" class="btn danger p-x-md" ng-click="deleteSale()"  data-dismiss="modal">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+<!-- / .modal delete sales -->
+
+<!-- .modal add cards -->
+<div id="m-b-w-add-card" class="modal white-overlay" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content box-shadow-z3">
+      <div class="modal-header">
+      	<h5 class="modal-title">Add Card</h5>
+      </div>
+      <div class="modal-body text-center p-lg">
+				<input type="text"  class="form-control" placeholder="card" ng-model="cardName">
+	    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
+        <button type="button" class="btn danger p-x-md"  ng-click="addCard(cardName)"  data-dismiss="modal">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+<!-- / .modal add cards -->
+
+<!-- .modal delete cards -->
+<div id="m-b-w-delete-card" class="modal white-overlay" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content box-shadow-z3">
+      <div class="modal-header">
+      	<h5 class="modal-title">Delete Card</h5>
+      </div>
+      <div class="modal-body text-center p-lg">
+        <p>{{selectCard}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
+        <button type="button" class="btn danger p-x-md" ng-click="deleteCard()"  data-dismiss="modal">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+<!-- / .modal delete cards -->
