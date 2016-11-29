@@ -8,10 +8,12 @@ var mongojs = require('mongojs');
 
 
 // simple usage for a local db
-var db = mongojs('storesdb', ['storesdb'])
+var storesdb = mongojs('storesdb', ['storesdb']);
+var salesdb = mongojs('salesdb', ['salesdb']);
+var cardsdb = mongojs('cardsdb', ['cardsdb']);
 
 var routes = require('./routes/index');
-var project = require('./routes/project')(db);
+var project = require('./routes/project')(storesdb, salesdb, cardsdb);
 
 
 var app = express();
@@ -26,6 +28,14 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 

@@ -20,7 +20,7 @@
 						<select class="form-control c-select" ng-model="selectSale">
 							<option disabled selected>--- sales ---</option>
 							<option 	ng-selected="{{sale == selectSale}}"
-												ng-repeat="sale in sales">{{sale.name}}</option>
+												ng-repeat="sale in sales">{{sale.nombr}}</option>
 						</select>
 					</div>
 					<div class="col-sm-4">
@@ -42,7 +42,7 @@
 						<select class="form-control c-select" ng-model="selectCard">
 							<option disabled selected>--- cards ---</option>
 							<option 	ng-selected="{{card == selectCard}}"
-												ng-repeat="card in cards">{{card.name}}</option>
+												ng-repeat="card in cards">{{card.nombr}}</option>
 						</select>
 					</div>
 					<div class="col-sm-4">
@@ -64,7 +64,7 @@
 						<select class="form-control c-select" ng-model="selectStore">
 							<option disabled selected>--- stores ---</option>
 							<option 	ng-selected="{{store == selectStore}}"
-												ng-repeat="store in stores">{{store.name}}</option>
+												ng-repeat="store in stores">{{store.nombr}}</option>
 						</select>
 					</div>
 					<div class="col-sm-4">
@@ -143,7 +143,7 @@
       	<h5 class="modal-title">Add Sales</h5>
       </div>
       <div class="modal-body text-center p-lg">
-				<input type="text"  class="form-control" placeholder="sale" ng-model="saleName">
+				<input type="text"  class="form-control" placeholder="sale name" ng-model="saleName">
 	    </div>
       <div class="modal-footer">
         <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
@@ -181,7 +181,7 @@
       	<h5 class="modal-title">Add Card</h5>
       </div>
       <div class="modal-body text-center p-lg">
-				<input type="text"  class="form-control" placeholder="card" ng-model="cardName">
+				<input type="text"  class="form-control" placeholder="card name" ng-model="cardName">
 	    </div>
       <div class="modal-footer">
         <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
