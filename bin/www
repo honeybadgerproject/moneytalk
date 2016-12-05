@@ -18,7 +18,7 @@ models.sequelize.sync().then(function () {
    * Get port from environment and store in Express.
    */
 
-  var port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || '8080');
+  var port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || '80');
   var ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 
